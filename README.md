@@ -1,38 +1,57 @@
-Role Name
+alemuro.mosquitto
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role installs and manages the Mosquitto service on Raspbian devices
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Name                                | Default                 | Description                                                                         |
+|-------------------------------------|-------------------------|-------------------------------------------------------------------------------------|
+| `alemuro_mosquitto_install_clients` | *yes*                   | `yes` if you wanna install the `mosquitto-clients` package                          |
+| `alemuro_mosquitto_settings`        |                         | Object with parameters you wanna configure on mosquitto                             |
+| `alemuro_mosquitto_password_file`   | */etc/mosquitto/pwfile* | Location of the passwords file                                                      |
+| `alemuro_mosquitto_user_list`       |                         | Users object. One entry per user, with username as identifier and htpasswd as value |
 
-Dependencies
-------------
+**alemuro_mosquitto_settings**
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```
+alemuro_mosquitto_settings:
+  allow_anonymous: no
+  persistence: yes
+  log_timestamp: yes
+  log_timestamp_format: "%Y-%m-%dT%H:%M:%S"
+```
+
+**alemuro_mosquitto_user_list**
+
+```
+alemuro_mosquitto_settings:
+  admin: <htpasswd value>
+```
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+```
+    - hosts: pi
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: alemuro.mosquitto }
+```
+
+Usage
+-----
+
+* Install:
+
+```
+$ ansible-galaxy -p roles alemuro.mosquitto
+```
+
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Apache License
