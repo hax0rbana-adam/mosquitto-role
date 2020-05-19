@@ -1,0 +1,27 @@
+---
+# tasks file for alemuro.mosquitto
+
+- name: Add Mosquitto repository key
+  become: yes
+  apt_key:
+    url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+    state: present
+
+- name: Add Mosquitto repository
+  become: yes
+  apt_repository:
+    repo: deb https://repo.mosquitto.org/debian buster main
+    state: present
+    update_cache: yes
+
+- name: Ensure mosquitto is installed
+  apt:
+    name: "mosquitto={{alemuro_mosquitto_version}}"
+    state: present
+    update_cache: yes
+
+- name: Ensure mosquitto-clients is installed
+  apt:
+    name: "mosquitto={{alemuro_mosquitto_version}}"
+    state: present
+  when: alemuro_mosquitto_install_clients

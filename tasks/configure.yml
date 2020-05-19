@@ -1,0 +1,16 @@
+- name: Setup password file
+  become: yes
+  template:
+    src: mosquitto.passwd.j2
+    dest: "{{ alemuro_mosquitto_password_file }}"
+  when: alemuro_mosquitto_password_file is not none
+  notify:
+    - restart mosquitto
+
+- name: Setup local config
+  become: yes
+  template:
+    src: mosquitto.local.conf.j2
+    dest: /etc/mosquitto/conf.d/mosquitto.local.conf
+  notify:
+    - restart mosquitto

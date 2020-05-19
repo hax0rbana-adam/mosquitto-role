@@ -1,0 +1,12 @@
+---
+# defaults file for alemuro.mosquitto
+alemuro_mosquitto_install_clients: yes
+alemuro_mosquitto_version: 1.6.*
+alemuro_mosquitto_settings:
+  allow_anonymous: no
+  persistence: yes
+  log_timestamp: yes
+  log_timestamp_format: "%Y-%m-%dT%H:%M:%S"
+alemuro_mosquitto_password_file: /etc/mosquitto/pwfile
+alemuro_mosquitto_user_list:
+  #user: password in htpasswd format
