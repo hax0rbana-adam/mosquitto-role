@@ -22,6 +22,6 @@
 
 - name: Ensure mosquitto-clients is installed
   apt:
-    name: "mosquitto={{alemuro_mosquitto_version}}"
+    name: "mosquitto-clients"
     state: present
   when: alemuro_mosquitto_install_clients
