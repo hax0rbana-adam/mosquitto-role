@@ -1,7 +1,9 @@
 ---
 # defaults file for alemuro.mosquitto
 alemuro_mosquitto_install_clients: yes
-alemuro_mosquitto_version: 1.6.*
+# Default is to get the latest version from apt repos
+# Uncommand the line below to get a specific version
+# alemuro_mosquitto_version: 1.6.*
 alemuro_mosquitto_settings:
   allow_anonymous: no
   persistence: yes

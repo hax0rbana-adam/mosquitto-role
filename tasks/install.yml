@@ -16,9 +16,17 @@
 
 - name: Ensure mosquitto is installed
   apt:
+    name: "mosquitto"
+    state: present
+    update_cache: yes
+  when: alemuro_mosquitto_version is not defined
+
+- name: Ensure a specific version of mosquitto is installed
+  apt:
     name: "mosquitto={{alemuro_mosquitto_version}}"
     state: present
     update_cache: yes
+  when: alemuro_mosquitto_version is defined
 
 - name: Ensure mosquitto-clients is installed
   apt:
