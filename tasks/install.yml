@@ -1,35 +1,43 @@
 ---
 # tasks file for alemuro.mosquitto
 
+# Instructions for adding apt repo are from https://repo.mosquitto.org/debian/README.txt
 - name: Add Mosquitto repository key
   become: yes
-  apt_key:
-    url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-    state: present
+  ansible.builtin.get_url:
+    url: https://repo.mosquitto.org/debian/mosquitto-repo.gpg
+    checksum: sha256:dc76d16438b81587e43578245fa657d621d5e1cdf17a8f449992ab8da9ced8cc
+    dest: /etc/apt/keyrings/mosquitto-repo.gpg
+    mode: '644'
+
+- name: Remove old mosquitto apt source, if it exists
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/repo_mosquitto_org_debian.list
+    state: absent
 
 - name: Add Mosquitto repository
   become: yes
-  apt_repository:
-    repo: deb https://repo.mosquitto.org/debian buster main
-    state: present
-    update_cache: yes
+  ansible.builtin.get_url:
+    url: https://repo.mosquitto.org/debian/mosquitto-{{ansible_lsb.codename}}.list
+    dest: /etc/apt/sources.list.d/mosquitto-{{ansible_lsb.codename}}.list
+    mode: '644'
 
 - name: Ensure mosquitto is installed
-  apt:
+  ansible.builtin.apt:
     name: "mosquitto"
     state: present
     update_cache: yes
   when: alemuro_mosquitto_version is not defined
 
 - name: Ensure a specific version of mosquitto is installed
-  apt:
+  ansible.builtin.apt:
     name: "mosquitto={{alemuro_mosquitto_version}}"
     state: present
     update_cache: yes
   when: alemuro_mosquitto_version is defined
 
 - name: Ensure mosquitto-clients is installed
-  apt:
+  ansible.builtin.apt:
     name: "mosquitto-clients"
     state: present
   when: alemuro_mosquitto_install_clients
