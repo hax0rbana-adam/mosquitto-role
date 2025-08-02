@@ -7,7 +7,7 @@
   ansible.builtin.get_url:
     url: https://repo.mosquitto.org/debian/mosquitto-repo.gpg
     checksum: sha256:dc76d16438b81587e43578245fa657d621d5e1cdf17a8f449992ab8da9ced8cc
-    dest: /etc/apt/keyrings/mosquitto-repo.gpg
+    dest: /etc/apt/trusted.gpg.d/mosquitto-repo.gpg
     mode: '644'
 
 - name: Remove old mosquitto apt source, if it exists
