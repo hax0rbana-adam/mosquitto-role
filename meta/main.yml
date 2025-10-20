@@ -1,13 +1,14 @@
 galaxy_info:
+  namespace: hax0rbana_adam
   role_name: mosquitto
-  author: Aleix Murtra
+  author: Adam
   description: Ansible role to manage mopsquitto on Raspbian devices.
   license: Apache-2.0
-  min_ansible_version: 2.4
+  min_ansible_version: "2.4"
   platforms:
     - name: Debian
       versions:
-        - bullseye
+        - all
   galaxy_tags:
     - mosquitto
     - raspberry

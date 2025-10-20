@@ -1,16 +1,18 @@
 - name: Setup password file
-  become: yes
-  template:
+  become: true
+  ansible.builtin.template:
     src: mosquitto.passwd.j2
     dest: "{{ alemuro_mosquitto_password_file }}"
+    mode: "0640"
   when: alemuro_mosquitto_password_file is not none
   notify:
     - restart mosquitto
 
 - name: Setup local config
-  become: yes
-  template:
+  become: true
+  ansible.builtin.template:
     src: mosquitto.local.conf.j2
     dest: /etc/mosquitto/conf.d/mosquitto.local.conf
+    mode: "0644"
   notify:
     - restart mosquitto

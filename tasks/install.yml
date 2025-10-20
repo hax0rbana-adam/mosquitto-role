@@ -3,7 +3,7 @@
 
 # Instructions for adding apt repo are from https://repo.mosquitto.org/debian/README.txt
 - name: Add Mosquitto repository key
-  become: yes
+  become: true
   ansible.builtin.get_url:
     url: https://repo.mosquitto.org/debian/mosquitto-repo.gpg
     checksum: sha256:dc76d16438b81587e43578245fa657d621d5e1cdf17a8f449992ab8da9ced8cc
@@ -16,24 +16,24 @@
     state: absent
 
 - name: Add Mosquitto repository
-  become: yes
+  become: true
   ansible.builtin.get_url:
-    url: https://repo.mosquitto.org/debian/mosquitto-{{ansible_lsb.codename}}.list
-    dest: /etc/apt/sources.list.d/mosquitto-{{ansible_lsb.codename}}.list
+    url: https://repo.mosquitto.org/debian/mosquitto-{{ ansible_lsb.codename }}.list
+    dest: /etc/apt/sources.list.d/mosquitto-{{ ansible_lsb.codename }}.list
     mode: '644'
 
 - name: Ensure mosquitto is installed
   ansible.builtin.apt:
     name: "mosquitto"
     state: present
-    update_cache: yes
+    update_cache: true
   when: alemuro_mosquitto_version is not defined
 
 - name: Ensure a specific version of mosquitto is installed
   ansible.builtin.apt:
-    name: "mosquitto={{alemuro_mosquitto_version}}"
+    name: "mosquitto={{ alemuro_mosquitto_version }}"
     state: present
-    update_cache: yes
+    update_cache: true
   when: alemuro_mosquitto_version is defined
 
 - name: Ensure mosquitto-clients is installed
