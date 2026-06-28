@@ -12,3 +12,8 @@ alemuro_mosquitto_settings:
 alemuro_mosquitto_password_file: /etc/mosquitto/pwfile
 alemuro_mosquitto_user_list:
   # user: password in htpasswd format
+
+# We default to using the .list file from mosquitto that matches out codename.
+# However, this needs to be overridden if your codename isn't available in
+# https://repo.mosquitto.org/debian/
+mosquitto_codename: "{{ ansible_lsb.codename }}"

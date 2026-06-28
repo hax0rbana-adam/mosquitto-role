@@ -18,8 +18,8 @@
 - name: Add Mosquitto repository
   become: true
   ansible.builtin.get_url:
-    url: https://repo.mosquitto.org/debian/mosquitto-{{ ansible_lsb.codename }}.list
-    dest: /etc/apt/sources.list.d/mosquitto-{{ ansible_lsb.codename }}.list
+    url: https://repo.mosquitto.org/debian/mosquitto-{{ mosquitto_codename }}.list
+    dest: /etc/apt/sources.list.d/mosquitto-{{ mosquitto_codename }}.list
     mode: '644'
 
 - name: Ensure mosquitto is installed
