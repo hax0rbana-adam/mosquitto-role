@@ -3,6 +3,8 @@
   ansible.builtin.template:
     src: mosquitto.passwd.j2
     dest: "{{ alemuro_mosquitto_password_file }}"
+    owner: mosquitto
+    group: mosquitto
     mode: "0640"
   when: alemuro_mosquitto_password_file is not none
   notify:
